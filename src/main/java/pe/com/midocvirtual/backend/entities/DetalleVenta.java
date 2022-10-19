@@ -15,4 +15,10 @@ public class DetalleVenta {
     private Double descuento;
     private Double subTotal;
     private Integer cantidad;
+    @ManyToOne
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
+    @ManyToOne
+    @JoinColumn(name = "orden_id")
+    private Orden orden;
 }

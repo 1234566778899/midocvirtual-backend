@@ -3,6 +3,7 @@ package pe.com.midocvirtual.backend.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,4 +18,15 @@ public class Producto {
     private String tipo;
     private boolean esRecetado;
     private String descripcion;
+    @OneToMany(mappedBy = "producto")
+    private List<DetalleVenta> detalleVentas;
+    @ManyToOne
+    @JoinColumn(name = "proveedor_id")
+    private Proveedor proveedor;
+
+    @OneToMany(mappedBy = "producto")
+    private List<Stock> stocks;
+
+    @OneToMany(mappedBy = "producto")
+    private List<Stock> compras;
 }

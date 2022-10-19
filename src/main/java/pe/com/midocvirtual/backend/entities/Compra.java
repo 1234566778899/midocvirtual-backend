@@ -15,4 +15,11 @@ public class Compra {
     private Date fechaCompra;
     private Double precioUnitario;
     private Integer cantidad;
+    @ManyToOne
+    @JoinColumn(name = "farmacia_id")
+    private Farmacia farmacia;
+
+    @ManyToOne
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
 }

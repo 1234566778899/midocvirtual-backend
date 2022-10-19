@@ -16,4 +16,10 @@ public class Orden {
     private Double total;
     private String numeroBoleta;
     private String formaPago;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+    @ManyToOne
+    @JoinColumn(name = "farmacia_id")
+    private Farmacia farmacia;
 }
