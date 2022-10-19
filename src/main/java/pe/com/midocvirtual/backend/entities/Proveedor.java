@@ -17,15 +17,4 @@ public class Proveedor {
     private String contacto;
     @OneToMany(mappedBy = "proveedor")
     private List<Producto> productos;
-    @Data
-    @Entity
-    @Table(name = "consultas")
-    public static class Consulta {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-        private String nombre;
-        private String correo;
-        private String descripcion;
-    }
 }
