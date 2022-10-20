@@ -1,12 +1,16 @@
 package pe.com.midocvirtual.backend.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "productos")
 public class Producto {
     @Id
@@ -29,4 +33,5 @@ public class Producto {
 
     @OneToMany(mappedBy = "producto")
     private List<Stock> compras;
+
 }
