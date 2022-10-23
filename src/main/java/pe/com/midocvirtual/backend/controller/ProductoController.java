@@ -27,7 +27,6 @@ public class ProductoController {
             producto.getProveedor().setProductos(null);
             producto.setDetalleVentas(null);
             producto.setStocks(null);
-            producto.setCompras(null);
         }
         return productos;
     }

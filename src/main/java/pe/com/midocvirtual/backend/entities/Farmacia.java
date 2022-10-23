@@ -29,9 +29,6 @@ public class Farmacia {
     private List<Orden> ordenes;
 
     @OneToMany(mappedBy = "farmacia")
-    private List<Compra> compras;
-
-    @OneToMany(mappedBy = "farmacia")
     private List<Stock> stocks;
 
 }

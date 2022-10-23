@@ -20,7 +20,6 @@ public class FarmaciaController {
     public List<Farmacia> getFarmacias(){
         List<Farmacia> farmacias=repo.findAll();
         for (Farmacia farmacia:farmacias){
-            farmacia.setCompras(null);
             farmacia.setStocks(null);
             farmacia.setOrdenes(null);
         }
@@ -28,6 +27,9 @@ public class FarmaciaController {
     }
     @GetMapping("/farmacias/{id}")
     public Optional<Farmacia> getFarmacia(@PathVariable Long id){
-        return repo.findById(id);
+        Optional<Farmacia> farmacia=repo.findById(id);
+        farmacia.get().setOrdenes(null);
+        farmacia.get().setStocks(null);
+        return farmacia;
     }
 }
