@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "productos")
+
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,5 +34,4 @@ public class Producto {
 
     @OneToMany(mappedBy = "producto")
     private List<Stock> compras;
-
 }

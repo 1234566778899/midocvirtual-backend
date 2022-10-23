@@ -11,7 +11,7 @@ import java.util.Date;
 public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer cantidadUnidad;
+    private Integer cantidadUnitaria;
     private Long precioUnitario;
     private Date fechaVencimiento;
     @ManyToOne

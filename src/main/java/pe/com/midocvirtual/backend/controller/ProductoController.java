@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pe.com.midocvirtual.backend.entities.Producto;
+import pe.com.midocvirtual.backend.entities.Proveedor;
 import pe.com.midocvirtual.backend.repositories.ProductoRepository;
 
+import javax.validation.constraints.Null;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/")
@@ -19,6 +22,13 @@ public class ProductoController {
 
     @GetMapping("/productos")
     public List<Producto>  getProductos(){
-        return repo.findAll();
+        List<Producto> productos=repo.findAll();
+        for (Producto producto:productos){
+            producto.getProveedor().setProductos(null);
+            producto.setDetalleVentas(null);
+            producto.setStocks(null);
+            producto.setCompras(null);
+        }
+        return productos;
     }
 }

@@ -1,6 +1,7 @@
 package pe.com.midocvirtual.backend.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +14,7 @@ public class Farmacia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String ruc;
+    private String nombreFarmacia;
     private String nombre;
     private String apellido;
     private String dni;
@@ -31,4 +33,5 @@ public class Farmacia {
 
     @OneToMany(mappedBy = "farmacia")
     private List<Stock> stocks;
+
 }

@@ -15,6 +15,7 @@ public class Compra {
     private Date fechaCompra;
     private Double precioUnitario;
     private Integer cantidad;
+    private Double total;
     @ManyToOne
     @JoinColumn(name = "farmacia_id")
     private Farmacia farmacia;
