@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,4 +23,7 @@ public class Orden {
     @ManyToOne
     @JoinColumn(name = "farmacia_id")
     private Farmacia farmacia;
+
+    @OneToMany(mappedBy = "orden")
+    private List<DetalleVenta> detalleVentas;
 }

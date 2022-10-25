@@ -19,6 +19,10 @@ public class ProveedorController {
     private ProveedorRepository repo;
     @GetMapping("/proveedores")
     public List<Proveedor> getProveedores(){
-        return repo.findAll();
+        List<Proveedor> proveedors=repo.findAll();
+        for (Proveedor proveedor:proveedors){
+            proveedor.setProductos(null);
+        }
+        return proveedors;
     }
 }
