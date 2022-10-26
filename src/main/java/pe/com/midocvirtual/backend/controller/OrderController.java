@@ -37,4 +37,8 @@ public class OrderController {
     public Double total(@PathVariable Date inicio,@PathVariable Date fin){
         return repo.totalIngresosEntreFechas(inicio,fin);
     }
+    @GetMapping("/ordenes/cantidad/{inicio}/{fin}")
+    public Double cantidad(@PathVariable Date inicio,@PathVariable Date fin){
+        return repo.cantidadVentasEntreFechas(inicio,fin);
+    }
 }
