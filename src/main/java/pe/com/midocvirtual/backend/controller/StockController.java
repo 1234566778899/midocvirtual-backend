@@ -26,22 +26,30 @@ public class StockController {
         return stocks;
     }
     @PostMapping("/stock")
-    public Stock addStock(@RequestBody Stock stock){
-        return repo.save(stock);
+    public List<Stock> addStock(@RequestBody List<Stock> stock){
+        List<Stock> lista=repo.saveAll(stock);
+        for (Stock stock1:lista){
+            stock1.setProducto(null);
+            stock1.setFarmacia(null);
+        }
+        return lista;
     }
 
     @GetMapping("/stock/{idStock}")
-    public Optional<Stock> getStock(@PathVariable Long idStock){
-        Optional<Stock> stock=repo.findById(idStock);
-        stock.get().getProducto().getProveedor().setProductos(null);
-        stock.get().getProducto().setStocks(null);
-        stock.get().getProducto().setDetalleVentas(null);
-        stock.get().getFarmacia().setStocks(null);
-        stock.get().getFarmacia().setOrdenes(null);
+    public Stock getStock(@PathVariable Long idStock){
+        Stock stock=repo.findById(idStock).get();
+        stock.getProducto().getProveedor().setProductos(null);
+        stock.getProducto().setStocks(null);
+        stock.getProducto().setDetalleVentas(null);
+        stock.getFarmacia().setStocks(null);
+        stock.getFarmacia().setOrdenes(null);
        return stock;
     }
     @PutMapping("/stock/update")
     public Stock updateStock(@RequestBody Stock stock){
-        return repo.save(stock);
+        Stock stock1=repo.save(stock);
+        stock1.setFarmacia(null);
+        stock1.setProducto(null);
+        return stock1;
     }
 }

@@ -15,6 +15,11 @@ public class DetalleVentaController {
     private DetalleVentaRepository repo;
     @PostMapping("/detalleVenta")
     public List<DetalleVenta> addDetalleventa(@RequestBody List<DetalleVenta> detalleVenta){
-        return repo.saveAll(detalleVenta);
+        List<DetalleVenta> lista=repo.saveAll(detalleVenta);
+        for (DetalleVenta detalleVenta1:lista){
+            detalleVenta1.setProducto(null);
+            detalleVenta1.setOrden(null);
+        }
+        return lista;
     }
 }

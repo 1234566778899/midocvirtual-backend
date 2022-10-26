@@ -18,7 +18,7 @@ public class ConsultaController {
         return repo.findAll();
     }
     @PostMapping("/consultas")
-    public Consulta addConsulta(@RequestBody Consulta consulta){
+    public  Consulta addConsulta(@RequestBody Consulta consulta){
         return repo.save(consulta);
     }
 }

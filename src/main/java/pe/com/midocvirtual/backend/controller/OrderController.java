@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import pe.com.midocvirtual.backend.entities.Orden;
 import pe.com.midocvirtual.backend.repositories.OrdenRepository;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -26,6 +27,14 @@ public class OrderController {
     }
     @PostMapping("/ordenes")
     public Orden addOrden(@RequestBody Orden orden){
-        return repo.save(orden);
+        Orden orden1=repo.save(orden);
+        orden1.setDetalleVentas(null);
+        orden1.setFarmacia(null);
+        orden1.setCliente(null);
+        return orden1;
+    }
+    @GetMapping("/ordenes/ingresos/{inicio}/{fin}")
+    public Double total(@PathVariable Date inicio,@PathVariable Date fin){
+        return repo.totalIngresosEntreFechas(inicio,fin);
     }
 }

@@ -27,15 +27,4 @@ public class ProductoController {
         }
         return productos;
     }
-
-    @GetMapping("/productos/stock/{idFarmacia}")
-    public List<Producto> getProductoInStock(@PathVariable Long idFarmacia){
-        List<Producto> productos=repo.findAllInStockByFarmaciaId(idFarmacia);
-        for (Producto producto:productos){
-            producto.getProveedor().setProductos(null);
-            producto.setDetalleVentas(null);
-            producto.setStocks(null);
-        }
-        return productos;
-    }
 }
