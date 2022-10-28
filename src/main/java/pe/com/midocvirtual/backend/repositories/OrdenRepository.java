@@ -14,4 +14,6 @@ public interface OrdenRepository extends JpaRepository<Orden, Long> {
     Double totalIngresosEntreFechas(Date inicio,Date fin);
     @Query("select count(o.id) from Orden o where o.fecha>=?1 and o.fecha<=?2")
     Double cantidadVentasEntreFechas(Date inicio,Date fin);
+    @Query("select o from Orden o where datediff(now(),o.fecha)<=3 and o.farmacia.id=?1 order by o.fecha desc")
+    List<Orden> findAllUltimos3Dias(Long idFarmacia);
 }

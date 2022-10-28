@@ -41,8 +41,7 @@ public class StockController {
         stock.getProducto().getProveedor().setProductos(null);
         stock.getProducto().setStocks(null);
         stock.getProducto().setDetalleVentas(null);
-        stock.getFarmacia().setStocks(null);
-        stock.getFarmacia().setOrdenes(null);
+        stock.setFarmacia(null);
        return stock;
     }
     @PutMapping("/stock/update")

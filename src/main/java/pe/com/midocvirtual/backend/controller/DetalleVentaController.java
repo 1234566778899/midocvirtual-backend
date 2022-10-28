@@ -22,4 +22,15 @@ public class DetalleVentaController {
         }
         return lista;
     }
+    @GetMapping("/detalleVenta/{idFarmacia}")
+    public List<DetalleVenta> getDetalleVentas(@PathVariable Long idFarmacia){
+        List<DetalleVenta> detalles=repo.findAllByFarmaciaId(idFarmacia);
+        for (DetalleVenta detalleVenta:detalles){
+            detalleVenta.setOrden(null);
+            detalleVenta.getProducto().setDetalleVentas(null);
+            detalleVenta.getProducto().setProveedor(null);
+            detalleVenta.getProducto().setStocks(null);
+        }
+        return detalles;
+    }
 }

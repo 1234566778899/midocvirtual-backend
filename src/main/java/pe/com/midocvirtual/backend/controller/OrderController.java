@@ -41,4 +41,14 @@ public class OrderController {
     public Double cantidad(@PathVariable Date inicio,@PathVariable Date fin){
         return repo.cantidadVentasEntreFechas(inicio,fin);
     }
+    @GetMapping("/ordenes/ultimos/{idFarmacia}")
+    public List<Orden> getUltimos3Dias(@PathVariable Long idFarmacia){
+        List<Orden> ordens=repo.findAllUltimos3Dias(idFarmacia);
+        for (Orden orden:ordens){
+            orden.setCliente(null);
+            orden.setDetalleVentas(null);
+            orden.setFarmacia(null);
+        }
+        return ordens;
+    }
 }

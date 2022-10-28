@@ -27,4 +27,12 @@ public class ProductoController {
         }
         return productos;
     }
+    @PostMapping("/productos")
+    public Producto addProducto(@RequestBody Producto producto){
+        Producto producto1=repo.save(producto);
+        producto1.setStocks(null);
+        producto1.setProveedor(null);
+        producto1.setDetalleVentas(null);
+        return producto1;
+    }
 }

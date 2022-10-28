@@ -6,6 +6,7 @@ import pe.com.midocvirtual.backend.entities.Cliente;
 import pe.com.midocvirtual.backend.repositories.ClienteRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/")
@@ -27,8 +28,14 @@ public class ClienteController {
         cliente.setOrdenes(null);
         return cliente;
     }
+    @GetMapping("/clientes/frecuentes")
+    public List<Object> findClientesFrecuentes(){
+
+        return repo.getClientesFrecuentes().stream().limit(30).collect(Collectors.toList());
+    }
     @PostMapping("/clientes")
     public Cliente addCliente(@RequestBody Cliente cliente){
+
         return repo.save(cliente);
     }
 }
