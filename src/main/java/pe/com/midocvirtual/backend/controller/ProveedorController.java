@@ -18,18 +18,21 @@ public class ProveedorController {
     @Autowired
     private ProveedorRepository repo;
     @GetMapping("/proveedores")
-    public List<Proveedor> getProveedores(){
+    public ResponseEntity<List<Proveedor>> getProveedores(){
         List<Proveedor> proveedors=repo.findAll();
+        if (proveedors.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         for (Proveedor proveedor:proveedors){
             proveedor.setProductos(null);
         }
-        return proveedors;
+        return new ResponseEntity<List<Proveedor>>(proveedors,HttpStatus.OK);
     }
     @PostMapping("/proveedores")
-    public Proveedor addProveedor(@RequestBody Proveedor proveedor){
+    public ResponseEntity<Proveedor> addProveedor(@RequestBody Proveedor proveedor){
         Proveedor proveedor1=repo.save(proveedor);
         proveedor1.setProductos(null);
-        return proveedor1;
+        return new ResponseEntity<Proveedor>(proveedor1,HttpStatus.CREATED);
     }
     @DeleteMapping("/proveedores/{id}")
     public ResponseEntity<HttpStatus> deleteProveedor(@PathVariable Long id){

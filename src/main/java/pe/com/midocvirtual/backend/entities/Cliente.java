@@ -1,5 +1,6 @@
 package pe.com.midocvirtual.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;

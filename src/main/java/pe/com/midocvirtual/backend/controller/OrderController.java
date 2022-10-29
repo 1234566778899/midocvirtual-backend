@@ -19,40 +19,48 @@ public class OrderController {
     @Autowired
     private OrdenRepository repo;
     @GetMapping("/ordenes/{idFarmacia}")
-    public List<Orden> getOrdenes(@PathVariable Long idFarmacia){
+    public ResponseEntity <List<Orden>> getOrdenes(@PathVariable Long idFarmacia){
         List<Orden> ordens=repo.findAllByFarmaciaId(idFarmacia);
+        if (ordens.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         for (Orden orden:ordens){
             orden.getCliente().setOrdenes(null);
             orden.setFarmacia(null);
             orden.setDetalleVentas(null);
         }
-        return ordens;
+        return new ResponseEntity<List<Orden>>(ordens,HttpStatus.OK);
     }
     @PostMapping("/ordenes")
-    public Orden addOrden(@RequestBody Orden orden){
+    public ResponseEntity <Orden> addOrden(@RequestBody Orden orden){
         Orden orden1=repo.save(orden);
         orden1.setDetalleVentas(null);
         orden1.setFarmacia(null);
         orden1.setCliente(null);
-        return orden1;
+        return new ResponseEntity<Orden>(orden1,HttpStatus.CREATED);
     }
     @GetMapping("/ordenes/ingresos/{inicio}/{fin}")
-    public Double total(@PathVariable Date inicio,@PathVariable Date fin){
-        return repo.totalIngresosEntreFechas(inicio,fin);
+    public ResponseEntity<Double> total(@PathVariable Date inicio,@PathVariable Date fin){
+        Double ingresos = repo.totalIngresosEntreFechas(inicio,fin);
+        return new ResponseEntity<Double>(ingresos,HttpStatus.OK);
     }
     @GetMapping("/ordenes/cantidad/{inicio}/{fin}")
-    public Double cantidad(@PathVariable Date inicio,@PathVariable Date fin){
-        return repo.cantidadVentasEntreFechas(inicio,fin);
+    public ResponseEntity <Double> cantidad(@PathVariable Date inicio,@PathVariable Date fin){
+        Double cantidad = repo.cantidadVentasEntreFechas(inicio,fin);
+        return new ResponseEntity<Double>(cantidad,HttpStatus.OK);
     }
     @GetMapping("/ordenes/ultimos/{idFarmacia}")
-    public List<Orden> getUltimos3Dias(@PathVariable Long idFarmacia){
+    public ResponseEntity <List<Orden>> getUltimos3Dias(@PathVariable Long idFarmacia){
         List<Orden> ordens=repo.findAllUltimos3Dias(idFarmacia);
+        if (ordens.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         for (Orden orden:ordens){
             orden.setCliente(null);
             orden.setDetalleVentas(null);
             orden.setFarmacia(null);
         }
-        return ordens;
+        return new ResponseEntity<List<Orden>>(ordens,HttpStatus.OK);
     }
     @DeleteMapping("/ordenes/{id}")
     public ResponseEntity<HttpStatus> deleteOrden(@PathVariable Long id){

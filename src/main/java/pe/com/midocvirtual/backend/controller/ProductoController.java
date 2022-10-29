@@ -21,22 +21,25 @@ public class ProductoController {
     private ProductoRepository repo;
 
     @GetMapping("/productos")
-    public List<Producto>  getProductos(){
+    public ResponseEntity<List<Producto>>  getProductos(){
         List<Producto> productos=repo.findAll();
+        if (productos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         for (Producto producto:productos){
             producto.getProveedor().setProductos(null);
             producto.setDetalleVentas(null);
             producto.setStocks(null);
         }
-        return productos;
+        return new ResponseEntity<List<Producto>>(productos,HttpStatus.OK);
     }
     @PostMapping("/productos")
-    public Producto addProducto(@RequestBody Producto producto){
+    public ResponseEntity<Producto> addProducto(@RequestBody Producto producto){
         Producto producto1=repo.save(producto);
         producto1.setStocks(null);
         producto1.setProveedor(null);
         producto1.setDetalleVentas(null);
-        return producto1;
+        return new ResponseEntity<Producto>(producto1,HttpStatus.CREATED);
     }
     @DeleteMapping("/productos/{id}")
     public ResponseEntity<HttpStatus> deleteProducto(@PathVariable Long id){
