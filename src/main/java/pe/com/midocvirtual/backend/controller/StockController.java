@@ -45,7 +45,7 @@ public class StockController {
     @GetMapping("/stock/{idStock}")
     public ResponseEntity<Optional<Stock>> getStock(@PathVariable Long idStock){
         Optional <Stock> stock= Optional.ofNullable(repo.findById(idStock).
-                orElseThrow(() -> new ResourceNotFoundException("No se encontró stock con id: " + idStock)));;
+                orElseThrow(() -> new ResourceNotFoundException("No se halló stock con id: " + idStock)));;
         stock.get().getProducto().getProveedor().setProductos(null);
         stock.get().getProducto().setStocks(null);
         stock.get().getProducto().setDetalleVentas(null);
