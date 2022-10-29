@@ -15,10 +15,14 @@ public class ConsultaController {
     private ConsultaRepository repo;
     @GetMapping("/consultas")
     public List<Consulta> getConsultas(){
-        return repo.findAll();
+        return repo.findAllOrderByFechaDesc();
     }
     @PostMapping("/consultas")
     public  Consulta addConsulta(@RequestBody Consulta consulta){
+        return repo.save(consulta);
+    }
+    @PutMapping("/consultas")
+    public Consulta updateConsulta(@RequestBody Consulta consulta){
         return repo.save(consulta);
     }
 }

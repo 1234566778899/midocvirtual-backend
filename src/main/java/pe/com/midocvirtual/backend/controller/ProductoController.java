@@ -1,6 +1,9 @@
 package pe.com.midocvirtual.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.com.midocvirtual.backend.entities.Producto;
 import pe.com.midocvirtual.backend.entities.Proveedor;
@@ -34,5 +37,10 @@ public class ProductoController {
         producto1.setProveedor(null);
         producto1.setDetalleVentas(null);
         return producto1;
+    }
+    @DeleteMapping("/productos/{id}")
+    public ResponseEntity<HttpStatus> deleteProducto(@PathVariable Long id){
+        repo.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

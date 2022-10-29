@@ -39,4 +39,11 @@ public class FarmaciaController {
         farmacia.setStocks(null);
         return farmacia1;
     }
+    @PutMapping("/farmacias")
+    public Farmacia updateFarmacia(@RequestBody Farmacia farmacia){
+        Farmacia farmacia1=repo.save(farmacia);
+        farmacia1.setStocks(null);
+        farmacia1.setOrdenes(null);
+        return farmacia1;
+    }
 }

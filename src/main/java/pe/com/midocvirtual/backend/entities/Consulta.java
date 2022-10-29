@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -16,4 +17,6 @@ public class Consulta {
     private String nombre;
     private String correo;
     private String descripcion;
+    private String estado;
+    private Date fecha;
 }

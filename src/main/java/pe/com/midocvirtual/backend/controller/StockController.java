@@ -1,6 +1,9 @@
 package pe.com.midocvirtual.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.com.midocvirtual.backend.entities.Stock;
 import pe.com.midocvirtual.backend.repositories.StockRepository;
@@ -50,5 +53,10 @@ public class StockController {
         stock1.setFarmacia(null);
         stock1.setProducto(null);
         return stock1;
+    }
+    @DeleteMapping("/stock/{id}")
+    public ResponseEntity<HttpStatus> deleteStock(@PathVariable Long id){
+        repo.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

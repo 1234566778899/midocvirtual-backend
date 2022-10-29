@@ -2,6 +2,9 @@ package pe.com.midocvirtual.backend.controller;
 
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.com.midocvirtual.backend.entities.Orden;
 import pe.com.midocvirtual.backend.repositories.OrdenRepository;
@@ -50,5 +53,10 @@ public class OrderController {
             orden.setFarmacia(null);
         }
         return ordens;
+    }
+    @DeleteMapping("/ordenes/{id}")
+    public ResponseEntity<HttpStatus> deleteOrden(@PathVariable Long id){
+        repo.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

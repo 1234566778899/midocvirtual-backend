@@ -24,7 +24,7 @@ public class Farmacia {
     private String telefono;
     private String correo;
     private String password;
-
+    private boolean activo;
     @OneToMany(mappedBy = "farmacia")
     private List<Orden> ordenes;
 
