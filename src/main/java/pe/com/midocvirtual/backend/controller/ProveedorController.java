@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.com.midocvirtual.backend.entities.Proveedor;
 import pe.com.midocvirtual.backend.repositories.ProveedorRepository;
+import pe.com.midocvirtual.backend.services.ProveedorService;
 
 import javax.persistence.Entity;
 import java.util.List;
@@ -16,27 +17,18 @@ import java.util.List;
 @RequestMapping(path = "/api")
 public class ProveedorController {
     @Autowired
-    private ProveedorRepository repo;
+    private ProveedorService repo;
     @GetMapping("/proveedores")
     public ResponseEntity<List<Proveedor>> getProveedores(){
-        List<Proveedor> proveedors=repo.findAll();
+        List<Proveedor> proveedors=repo.getProveedores();
         if (proveedors.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        for (Proveedor proveedor:proveedors){
-            proveedor.setProductos(null);
         }
         return new ResponseEntity<List<Proveedor>>(proveedors,HttpStatus.OK);
     }
     @PostMapping("/proveedores")
     public ResponseEntity<Proveedor> addProveedor(@RequestBody Proveedor proveedor){
-        Proveedor proveedor1=repo.save(proveedor);
-        proveedor1.setProductos(null);
+        Proveedor proveedor1=repo.addProveedor(proveedor);
         return new ResponseEntity<Proveedor>(proveedor1,HttpStatus.CREATED);
-    }
-    @DeleteMapping("/proveedores/{id}")
-    public ResponseEntity<HttpStatus> deleteProveedor(@PathVariable Long id){
-        repo.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

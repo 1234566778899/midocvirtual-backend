@@ -9,6 +9,7 @@ import pe.com.midocvirtual.backend.entities.Producto;
 import pe.com.midocvirtual.backend.exceptions.ResourceNotFoundException;
 import pe.com.midocvirtual.backend.repositories.FarmaciaRepository;
 import pe.com.midocvirtual.backend.repositories.ProductoRepository;
+import pe.com.midocvirtual.backend.services.FarmaciaServices;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,39 +19,28 @@ import java.util.Optional;
 @RequestMapping(path = "/api")
 public class FarmaciaController {
     @Autowired
-    private FarmaciaRepository repo;
+    private FarmaciaServices repo;
     @GetMapping("/farmacias")
     public ResponseEntity<List<Farmacia>> getFarmacias(){
-        List<Farmacia> farmacias=repo.findAll();
+        List<Farmacia> farmacias=repo.getFarmacias();
         if (farmacias.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        for (Farmacia farmacia:farmacias){
-            farmacia.setStocks(null);
-            farmacia.setOrdenes(null);
         }
         return new ResponseEntity<List<Farmacia>>(farmacias,HttpStatus.OK);
     }
     @GetMapping("/farmacias/{id}")
-    public ResponseEntity <Optional<Farmacia>> getFarmacia(@PathVariable Long id){
-        Optional<Farmacia> farmacia= Optional.ofNullable(repo.findById(id).
-                orElseThrow(() -> new ResourceNotFoundException("No se encontró la farmacia con id: " + id)));;
-        farmacia.get().setOrdenes(null);
-        farmacia.get().setStocks(null);
-        return new ResponseEntity<Optional<Farmacia>>(farmacia,HttpStatus.OK);
+    public ResponseEntity <Farmacia> getFarmacia(@PathVariable Long id){
+        Farmacia farmacia= repo.getFarmacia(id);
+        return new ResponseEntity<Farmacia>(farmacia,HttpStatus.OK);
     }
     @PostMapping("/farmacias")
     public ResponseEntity <Farmacia> addFarmacia(@RequestBody Farmacia farmacia){
-        Farmacia farmacia1=repo.save(farmacia);
-        farmacia1.setOrdenes(null);
-        farmacia.setStocks(null);
+        Farmacia farmacia1=repo.addFarmacia(farmacia);
         return new ResponseEntity<Farmacia>(farmacia1,HttpStatus.CREATED);
     }
     @PutMapping("/farmacias")
     public ResponseEntity <Farmacia> updateFarmacia(@RequestBody Farmacia farmacia){
-        Farmacia farmacia1=repo.save(farmacia);
-        farmacia1.setStocks(null);
-        farmacia1.setOrdenes(null);
+        Farmacia farmacia1=repo.aditFarmacia(farmacia);
         return new ResponseEntity<Farmacia>(farmacia1,HttpStatus.OK);
     }
 }

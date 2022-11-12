@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.com.midocvirtual.backend.entities.DetalleVenta;
 import pe.com.midocvirtual.backend.repositories.DetalleVentaRepository;
+import pe.com.midocvirtual.backend.services.DetalleServices;
 
 import java.util.List;
 
@@ -14,28 +15,10 @@ import java.util.List;
 @RequestMapping(path = "/api")
 public class DetalleVentaController {
     @Autowired
-    private DetalleVentaRepository repo;
+    private DetalleServices repo;
     @PostMapping("/detalleVenta")
     public ResponseEntity<List<DetalleVenta>> addDetalleventa(@RequestBody List<DetalleVenta> detalleVenta){
-        List<DetalleVenta> lista=repo.saveAll(detalleVenta);
-        for (DetalleVenta detalleVenta1:lista){
-            detalleVenta1.setProducto(null);
-            detalleVenta1.setOrden(null);
-        }
+        List<DetalleVenta> lista=repo.addDetalleOrden(detalleVenta);
         return new ResponseEntity<List<DetalleVenta>>(lista, HttpStatus.CREATED);
-    }
-    @GetMapping("/detalleVenta/{idFarmacia}")
-    public ResponseEntity <List<DetalleVenta>> getDetalleVentas(@PathVariable Long idFarmacia){
-        List<DetalleVenta> detalles=repo.findAllByFarmaciaId(idFarmacia);
-        if (detalles.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        for (DetalleVenta detalleVenta:detalles){
-            detalleVenta.setOrden(null);
-            detalleVenta.getProducto().setDetalleVentas(null);
-            detalleVenta.getProducto().setProveedor(null);
-            detalleVenta.getProducto().setStocks(null);
-        }
-        return new ResponseEntity<List<DetalleVenta>>(detalles,HttpStatus.OK);
     }
 }

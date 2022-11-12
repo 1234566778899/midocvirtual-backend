@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pe.com.midocvirtual.backend.entities.Cliente;
 import pe.com.midocvirtual.backend.entities.Consulta;
 import pe.com.midocvirtual.backend.repositories.ConsultaRepository;
+import pe.com.midocvirtual.backend.services.ConsultaServices;
 
 import java.util.List;
 
@@ -15,11 +16,10 @@ import java.util.List;
 @RequestMapping(path = "/api")
 public class ConsultaController {
     @Autowired
-    private ConsultaRepository repo;
+    private ConsultaServices repo;
     @GetMapping("/consultas")
     public ResponseEntity<List<Consulta>> getConsultas(){
-        List<Consulta> consultas;
-        consultas = repo.findAllOrderByFechaDesc();
+        List<Consulta> consultas= repo.getConsultas();
         if (consultas.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -27,12 +27,7 @@ public class ConsultaController {
     }
     @PostMapping("/consultas")
     public ResponseEntity <Consulta> addConsulta(@RequestBody Consulta consulta){
-        Consulta newConsulta = repo.save(consulta);
+        Consulta newConsulta = repo.addConsulta(consulta);
         return new ResponseEntity<Consulta>(newConsulta,HttpStatus.CREATED);
-    }
-    @PutMapping("/consultas")
-    public ResponseEntity <Consulta> updateConsulta(@RequestBody Consulta consulta){
-        Consulta updatedConsulta = repo.save(consulta);
-        return new ResponseEntity<Consulta>(updatedConsulta,HttpStatus.OK);
     }
 }

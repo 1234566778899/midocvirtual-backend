@@ -15,6 +15,7 @@ public class DetalleVenta {
     private Double descuento;
     private Double subTotal;
     private Integer cantidad;
+    private Long stockId;
     @ManyToOne
     @JoinColumn(name = "producto_id")
     private Producto producto;

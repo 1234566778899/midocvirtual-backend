@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pe.com.midocvirtual.backend.entities.Producto;
 import pe.com.midocvirtual.backend.entities.Proveedor;
 import pe.com.midocvirtual.backend.repositories.ProductoRepository;
+import pe.com.midocvirtual.backend.services.ProductoServices;
 
 import javax.validation.constraints.Null;
 import java.util.List;
@@ -18,32 +19,19 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/api")
 public class ProductoController {
     @Autowired
-    private ProductoRepository repo;
+    private ProductoServices repo;
 
     @GetMapping("/productos")
     public ResponseEntity<List<Producto>>  getProductos(){
-        List<Producto> productos=repo.findAll();
+        List<Producto> productos=repo.getProductos();
         if (productos.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        for (Producto producto:productos){
-            producto.getProveedor().setProductos(null);
-            producto.setDetalleVentas(null);
-            producto.setStocks(null);
         }
         return new ResponseEntity<List<Producto>>(productos,HttpStatus.OK);
     }
     @PostMapping("/productos")
     public ResponseEntity<Producto> addProducto(@RequestBody Producto producto){
-        Producto producto1=repo.save(producto);
-        producto1.setStocks(null);
-        producto1.setProveedor(null);
-        producto1.setDetalleVentas(null);
+        Producto producto1=repo.addProducto(producto);
         return new ResponseEntity<Producto>(producto1,HttpStatus.CREATED);
-    }
-    @DeleteMapping("/productos/{id}")
-    public ResponseEntity<HttpStatus> deleteProducto(@PathVariable Long id){
-        repo.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
