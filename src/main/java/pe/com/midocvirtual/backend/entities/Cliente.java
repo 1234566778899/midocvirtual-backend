@@ -18,4 +18,5 @@ public class Cliente {
     private String dni;
     @OneToMany(mappedBy = "cliente")
     private List<Orden> ordenes;
+    //clientes
 }
