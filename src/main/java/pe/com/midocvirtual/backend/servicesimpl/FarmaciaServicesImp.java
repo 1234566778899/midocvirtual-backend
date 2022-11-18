@@ -41,4 +41,12 @@ public class FarmaciaServicesImp implements FarmaciaServices {
         farmacia1.setOrdenes(null);
         return  farmacia1;
     }
+
+    @Override
+    public Farmacia findFarmaciaByCorreo(String correo) {
+        Farmacia farmacia=repo.findByCorreo(correo);
+        farmacia.setStocks(null);
+        farmacia.setOrdenes(null);
+        return farmacia;
+    }
 }

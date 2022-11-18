@@ -47,4 +47,8 @@ public class StockController {
         repo.deleteStock(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @GetMapping("/stock/disponible/venta/{idFarmacia}")
+    public ResponseEntity<List<Stock>> getStockDisponibleParaVenta(@PathVariable Long idFarmacia){
+        return new ResponseEntity<List<Stock>>(repo.getStockDisponibleParaVenta(idFarmacia),HttpStatus.OK);
+    }
 }

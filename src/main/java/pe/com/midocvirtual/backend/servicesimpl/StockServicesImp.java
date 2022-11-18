@@ -56,4 +56,14 @@ public class StockServicesImp implements StockServices {
     public void deleteStock(Long id) {
         repo.deleteById(id);
     }
+    public List<Stock> getStockDisponibleParaVenta(Long idFarmacia) {
+        List<Stock> stocks=repo.getStockDisponibleParaVenta(idFarmacia);
+        for (Stock stock:stocks){
+            stock.setFarmacia(null);
+            stock.getProducto().setStocks(null);
+            stock.getProducto().setDetalleVentas(null);
+            stock.getProducto().getProveedor().setProductos(null);
+        }
+        return stocks;
+    }
 }

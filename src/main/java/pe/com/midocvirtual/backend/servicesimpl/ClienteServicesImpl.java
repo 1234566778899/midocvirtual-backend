@@ -32,9 +32,9 @@ public class ClienteServicesImpl implements ClienteServices {
     public Cliente addCliente(Cliente cliente) {
         return repo.save(cliente);
     }
-    public List<Object> clientesFrecuentes() {
+    public List<Object> clientesFrecuentes(Long idFarmacia) {
         List<Object>clientesFrecuentes;
-        clientesFrecuentes = repo.getClientesFrecuentes().stream().limit(30).collect(Collectors.toList());
+        clientesFrecuentes = repo.getClientesFrecuentes(idFarmacia).stream().limit(30).collect(Collectors.toList());
         return clientesFrecuentes;
     }
 }

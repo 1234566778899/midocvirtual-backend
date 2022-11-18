@@ -6,7 +6,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.com.midocvirtual.backend.dto.ReporteSemanalDTO;
 import pe.com.midocvirtual.backend.entities.DetalleVenta;
 import pe.com.midocvirtual.backend.entities.Orden;
 import pe.com.midocvirtual.backend.repositories.OrdenRepository;
@@ -58,5 +57,14 @@ public class OrderController {
     @GetMapping("/ordenes/detalle/{id}")
     public ResponseEntity<Orden> getOrden(@PathVariable Long id){
         return new ResponseEntity<>(repo.getOrden(id),HttpStatus.OK);
+    }
+    @GetMapping("/ordenes/ganancias/mensules/{idFarmacia}/{inicio}/{fin}")
+    public ResponseEntity<List<Object>> getGananciasMensuales(@PathVariable Long idFarmacia,@PathVariable Date inicio,
+                                                              @PathVariable Date fin){
+        return new ResponseEntity<>(repo.getGananciasMensuales(idFarmacia,inicio,fin),HttpStatus.OK);
+    }
+    @GetMapping("/ordenes/productos/mas/vendidos/{idFarmacia}")
+    public ResponseEntity<List<Object>> getProductosMasVendidos(@PathVariable Long idFarmacia){
+        return new ResponseEntity<>(repo.getProductosMasVendidos(idFarmacia),HttpStatus.OK);
     }
 }

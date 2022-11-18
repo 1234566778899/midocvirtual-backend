@@ -34,10 +34,10 @@ public class ClienteController {
                 orElseThrow(() -> new ResourceNotFoundException("No existen clientes con DNI=" + dniCliente)));;
         return new ResponseEntity<Optional<Cliente>>(cliente,HttpStatus.OK);
     }
-    @GetMapping("/clientes/frecuentes")
-    public ResponseEntity <List<Object>> findClientesFrecuentes(){
-        List<Object>clientesFrecuentes = repo.clientesFrecuentes();
-        return new ResponseEntity <List<Object>>(clientesFrecuentes,HttpStatus.OK);
+    @GetMapping("/clientes/frecuentes/{idFarmacia}")
+    public ResponseEntity <List<Object>> findClientesFrecuentes(@PathVariable Long idFarmacia){
+        List<Object> _clientesFrecuentes = repo.clientesFrecuentes(idFarmacia);
+        return new ResponseEntity <List<Object>>(_clientesFrecuentes,HttpStatus.OK);
     }
     @PostMapping("/clientes")
     public ResponseEntity <Cliente> addCliente(@RequestBody Cliente cliente){

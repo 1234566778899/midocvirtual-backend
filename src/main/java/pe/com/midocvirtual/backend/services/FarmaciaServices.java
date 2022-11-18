@@ -9,4 +9,5 @@ public interface FarmaciaServices {
     public Farmacia getFarmacia(Long id);
     public Farmacia addFarmacia(Farmacia farmacia);
     public Farmacia aditFarmacia(Farmacia farmacia);
+    public Farmacia findFarmaciaByCorreo(String correo);
 }

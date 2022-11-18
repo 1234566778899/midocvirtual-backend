@@ -33,6 +33,11 @@ public class FarmaciaController {
         Farmacia farmacia= repo.getFarmacia(id);
         return new ResponseEntity<Farmacia>(farmacia,HttpStatus.OK);
     }
+    @GetMapping("/farmacias/correo/{correo}")
+    public ResponseEntity <Farmacia> getFarmaciaByCorreo(@PathVariable String correo){
+        Farmacia farmacia= repo.findFarmaciaByCorreo(correo);
+        return new ResponseEntity<Farmacia>(farmacia,HttpStatus.OK);
+    }
     @PostMapping("/farmacias")
     public ResponseEntity <Farmacia> addFarmacia(@RequestBody Farmacia farmacia){
         Farmacia farmacia1=repo.addFarmacia(farmacia);

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pe.com.midocvirtual.backend.dto.ReporteSemanalDTO;
 import pe.com.midocvirtual.backend.entities.DetalleVenta;
 import pe.com.midocvirtual.backend.entities.Orden;
 import pe.com.midocvirtual.backend.repositories.OrdenRepository;
@@ -64,8 +63,14 @@ public class OrdenServicesImp implements OrdenService {
         for(Orden orden:ordens){
             orden.setDetalleVentas(null);
             orden.setFarmacia(null);
-            orden.setCliente(null);
+            orden.getCliente().setOrdenes(null);
         }
         return ordens;
+    }
+    public List<Object> getGananciasMensuales(Long idFarmacia, Date inicio, Date fin) {
+        return repo.getGananciasMensuales(idFarmacia,inicio,fin);
+    }
+    public List<Object> getProductosMasVendidos(Long idFarmacia){
+        return repo.getProductoMasVendidos(idFarmacia);
     }
 }

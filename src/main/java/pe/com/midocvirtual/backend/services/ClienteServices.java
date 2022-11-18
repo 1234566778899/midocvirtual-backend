@@ -11,5 +11,5 @@ public interface ClienteServices {
     public List<Cliente> getClientes();
     public Cliente getClienteByDni(String dni);
     public Cliente addCliente(Cliente cliente);
-    public List<Object> clientesFrecuentes();
+    public List<Object> clientesFrecuentes(Long idFarmacia);
 }

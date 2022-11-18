@@ -10,4 +10,5 @@ public interface StockServices {
     public Stock getStock(Long id);
     public Stock editStock(Stock stock);
     public void deleteStock(Long id);
+    List<Stock> getStockDisponibleParaVenta(Long idFarmacia);
 }
