@@ -1,6 +1,7 @@
 package pe.com.midocvirtual.backend.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import pe.com.midocvirtual.backend.dto.ClienteFrecuente;
 import pe.com.midocvirtual.backend.entities.Cliente;
 import pe.com.midocvirtual.backend.repositories.ClienteRepository;
 

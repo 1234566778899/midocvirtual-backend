@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pe.com.midocvirtual.backend.dto.ClienteFrecuente;
 import pe.com.midocvirtual.backend.entities.Cliente;
 import pe.com.midocvirtual.backend.exceptions.ResourceNotFoundException;
 import pe.com.midocvirtual.backend.repositories.ClienteRepository;
@@ -33,8 +34,6 @@ public class ClienteServicesImpl implements ClienteServices {
         return repo.save(cliente);
     }
     public List<Object> clientesFrecuentes(Long idFarmacia) {
-        List<Object>clientesFrecuentes;
-        clientesFrecuentes = repo.getClientesFrecuentes(idFarmacia).stream().limit(30).collect(Collectors.toList());
-        return clientesFrecuentes;
+        return repo.getClientesFrecuentes(idFarmacia);
     }
 }
