@@ -30,5 +30,8 @@ public class Farmacia {
 
     @OneToMany(mappedBy = "farmacia")
     private List<Stock> stocks;
+    @Lob
+    @Column(name = "photo")
+    private byte[] photo;
 
 }

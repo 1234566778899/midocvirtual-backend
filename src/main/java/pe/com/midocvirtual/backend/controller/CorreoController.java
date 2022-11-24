@@ -19,15 +19,13 @@ public class CorreoController {
     private CorreoRepository repo;
     @PostMapping("/correo")
     public ResponseEntity<Correo> sendCorreo(@RequestBody Correo correo){
-        /**
-         *SimpleMailMessage email=new SimpleMailMessage();
-         *         email.setTo(correo.getDestino());
-         *         email.setFrom("ordazhoyos2001@gmail.com");
-         *         email.setSubject(correo.getAsunto());
-         *         email.setText(correo.getTexto());
-         *         mail.send(email);
-          */
 
+         SimpleMailMessage email=new SimpleMailMessage();
+                 email.setTo(correo.getDestino());
+                 email.setFrom("ordazhoyos2001@gmail.com");
+                 email.setSubject(correo.getAsunto());
+                email.setText(correo.getTexto());
+                mail.send(email);
         return new ResponseEntity<Correo>(repo.save(correo),HttpStatus.OK);
     }
     @GetMapping("/correo/{correo}")
